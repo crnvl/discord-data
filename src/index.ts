@@ -12,18 +12,26 @@ const client = new Client({
     ]
 })
 
-client.on(`messageCreate`, async (message) => {
-    if (config.options["collect-messages"])
-        fs.writeFile(`data/${message.guild?.id}.raw`, `${message.content}\n`, { flag: "a+" }, (err) => {
-            if (err) throw err;
-        })
+client.on("ready", async () => {
+    console.log("Logged in!")
+    console.log("Created missing directories.")
+
+    client.on(`messageCreate`, async (message) => {
+        const regex = /<@!?(\d+)>/g;
+        const content = message.content.replace(regex, '').trim();
+        
+        if (content.length === 0) return;
+        
+        if (config.options["collect-messages"])
+            fs.writeFile(`data/${message.guild?.id}.raw`, `${content}\n`, { flag: "a+" }, (err) => {
+                if (err) {
+                    fs.mkdir(`data/`, (err) => {
+                        if (err) throw err;
+                    })
+                }
+            })
+    })
 })
 
 client.login(config.token).then(() => {
-    console.log("Logged in!")
-
-    fs.mkdir(`data/`, (err) => {
-        if (err) throw err;
-    })
-    console.log("Created missing directories.")
 })

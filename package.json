@@ -2,10 +2,10 @@
   "name": "discord-data",
   "version": "1.0.0",
   "description": "Easily build up a dataset of chatlogs from Discord.",
-  "main": "./src/index.ts",
+  "main": "./src/sharding.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node ./src/index.ts"
+    "start": "tsc && node ./build/sharding.js"
   },
   "author": "angelsflyinhell",
   "license": "ISC",
