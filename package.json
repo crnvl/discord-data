@@ -4,8 +4,12 @@
   "description": "Easily build up a dataset of chatlogs from Discord.",
   "main": "./src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node ./src/index.ts"
   },
   "author": "angelsflyinhell",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.6.0"
+  }
 }
