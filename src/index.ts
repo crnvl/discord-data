@@ -24,6 +24,7 @@ client.on("ready", async () => {
         if (message.author.bot) return;
 
         if (config.options["collect-messages"])
+            console.log(`Saved message on Guild ${message.guild?.id}`)
             fs.writeFile(`data/${message.guild?.id}.raw`, `${content}\n`, { flag: "a+" }, (err) => {
                 if (err) {
                     fs.mkdir(`data/`, (err) => {
