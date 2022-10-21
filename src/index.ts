@@ -12,8 +12,8 @@ const client = new Client({
     ]
 })
 
-client.on("ready", async () => {
-    console.log("Logged in!")
+client.on("ready", async (client) => {
+    console.log("Logged in as " + client.user.tag);
     console.log("Created missing directories.")
 
     client.on(`messageCreate`, async (message) => {
@@ -24,8 +24,8 @@ client.on("ready", async () => {
         if (message.author.bot) return;
 
         if (config.options["collect-messages"])
-            console.log(`Saved message on Guild ${message.guild?.id}`)
-            fs.writeFile(`data/${message.guild?.id}.raw`, `${content}\n`, { flag: "a+" }, (err) => {
+            console.log(`data/${message.guild?.id}_${message.channel.id}.raw`)
+            fs.writeFile(`data/${message.guild?.id}_${message.channel.id}.raw`, `${content}\n`, { flag: "a+" }, (err) => {
                 if (err) {
                     fs.mkdir(`data/`, (err) => {
                         if (err) throw err;
