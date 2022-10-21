@@ -19,9 +19,10 @@ client.on("ready", async () => {
     client.on(`messageCreate`, async (message) => {
         const regex = /<@!?(\d+)>/g;
         const content = message.content.replace(regex, '').trim();
-        
+
         if (content.length === 0) return;
-        
+        if (message.author.bot) return;
+
         if (config.options["collect-messages"])
             fs.writeFile(`data/${message.guild?.id}.raw`, `${content}\n`, { flag: "a+" }, (err) => {
                 if (err) {
